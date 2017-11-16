@@ -19,6 +19,7 @@ Keystone ks;
 CornerPinSurface surface;
 
 PGraphics offscreen;
+PImage imageSpring, imageSummer, imageOutumn, imageWinter;
 
 int cropLeft = 10; 
 int cropRight = 10;
@@ -26,11 +27,11 @@ int cropTop = 10;
 int cropBottom = 90;
 boolean cropping = false;
 
-SandboxImageLayer imageLayer, catImageLayer, catShitImageLayer, brownImageLayer;
+SandboxImageLayer imageLayer, catImageLayer, catShitImageLayer, brownImageLayer, springImageLayer;
 
 void setup() {
   fullScreen(P3D, 2); // 2 - second screen (projector) must be in extend mode
-  
+
   //size(640, 480, P3D);
   context = new SimpleOpenNI(this);
   if (context.isInit() == false)
@@ -48,25 +49,28 @@ void setup() {
   ks.load();
 
   offscreen = createGraphics(width, height, P3D);
-  //offscreen.rotate(180);
+
 
   //imageLayer = new SandboxImageLayer(loadImage("girlwithbunny-closeup.jpg"), 100, 100, 100, 100, 800);
-  
-   
-  //brownImageLayer = new SandboxImageLayer(loadImage("brown.jpg"), 0, 0, 640, 480, 720);
-  
-  catImageLayer = new SandboxImageLayer(loadImage("green.jpg"), 0, 0, 600, 350, 770);
+
+
+  brownImageLayer = new SandboxImageLayer(loadImage("brown.jpg"), 0, 0, 600, 350, 745);
+
+  catImageLayer = new SandboxImageLayer(loadImage("relva.jpg"), 0, 0, 600, 350, 785);
   //catImageLayer = new SandboxImageLayer(loadImage("green.jpg"), 0, 0, 640, 480, 750);
-  catShitImageLayer = new SandboxImageLayer(loadImage("blue.jpg"), 0, 0, 600, 350, 785);//TODO
+  catShitImageLayer = new SandboxImageLayer(loadImage("agua.jpg"), 0, 0, 600, 350, 830);//TODO
   //catShitImageLayer = new SandboxImageLayer(loadImage("blue.jpg"), 0, 0, 640, 480, 780);
- 
+  imageSpring = loadImage("primavera.png");
+  imageSummer = loadImage("verão.png");
+  imageOutumn = loadImage("outono.png");
+  imageWinter = loadImage("inverno.png");
 }
 
 void draw() {
   context.update();
   int croppedWidth = (640-cropLeft-cropRight);
   int croppedHeight = (480-cropBottom-cropTop);
-  
+
 
   /* Crop the depth map*/
   int depthMap[] = new int[croppedWidth * croppedHeight]; 
@@ -84,34 +88,34 @@ void draw() {
   PImage depthImage = context.depthImage().get(cropLeft, cropTop, 640-cropRight-cropLeft, 480-cropBottom-cropTop);
 
   // Draw the scene, offscreen
-  
+
   offscreen.beginDraw();
   offscreen.background(0);
-  
+
 
   // Draw depth data as color green to red
-  
+
   int steps = 10;
   offscreen.noStroke();
   color fromColor = color(0, 255, 0);
   color toColor = color(255, 0, 0);
   for (int y=0; y < croppedHeight; y+=steps) {
     for (int x=0; x < croppedWidth; x+=steps) {
-      
+
       int index = x + y * croppedWidth;
       offscreen.fill (lerpColor(fromColor, toColor, map(depthMap[index], 720, 800, 0, 1)));
       offscreen.rect(map(x, 0, croppedWidth, 0, width), map(y, 0, croppedHeight, 0, height), 20, 20);
-     // println(x, y, depthMap[index]);
+      // println(x, y, depthMap[index]);
     }
   } 
 
   // Draw depth image
-  
-   offscreen.pushMatrix();
-   offscreen.scale(width*1.0/depthImage.width, height*1.0/depthImage.height);
-   offscreen.image(depthImage, 0, 0);//, width, height);
-   offscreen.popMatrix();
-   
+
+  offscreen.pushMatrix();
+  offscreen.scale(width*1.0/depthImage.width, height*1.0/depthImage.height);
+  offscreen.image(depthImage, 0, 0);//, width, height);
+  offscreen.popMatrix();
+
 
 
   if (cropping) {
@@ -126,17 +130,17 @@ void draw() {
   // Regions are defined in the original image reference (640x480) so we need to scale them
   offscreen.pushMatrix();
   offscreen.scale(width*1.0/depthImage.width, height*1.0/depthImage.height);
- // imageLayer.run(depthImage, realWorldMap);
+  // imageLayer.run(depthImage, realWorldMap);
   //imageLayer.draw(offscreen);
   catImageLayer.run(depthImage, realWorldMap);
   catImageLayer.draw(offscreen);
-  
+
   catShitImageLayer.run(depthImage, realWorldMap);
   catShitImageLayer.draw(offscreen);
-  
-  //brownImageLayer.run(depthImage, realWorldMap);
-  //brownImageLayer.draw(offscreen);
-  
+
+  brownImageLayer.run(depthImage, realWorldMap);
+  brownImageLayer.draw(offscreen);
+
   offscreen.popMatrix();
 
 
@@ -146,7 +150,7 @@ void draw() {
   mX = constrain(mX, 0, croppedWidth-1);
   int mY = (int)map(surfaceMouse.y, 0, height-1, 0, croppedHeight-1);
   mY = constrain(mY, 0, croppedHeight-1);
-  // println(mX, mY, red(depthImage.pixels[mY*depthImage.width+mX]));
+  //println(mX, mY, red(depthImage.pixels[mY*depthImage.width+mX]));
   offscreen.stroke(0, 0, 255);
   offscreen.strokeWeight(5);
   offscreen.noFill();
@@ -154,12 +158,35 @@ void draw() {
   offscreen.fill(255, 0, 0);
   offscreen.textSize(63);
   offscreen.text(""+realWorldMap[mY*croppedWidth+mX].z, surfaceMouse.x, surfaceMouse.y);
-  
+
+
 
   offscreen.endDraw();
 
+
+
   background(0);
   surface.render(offscreen);
+
+
+
+  float aux = realWorldMap[325*croppedWidth+575].z;
+
+  //float aux = realWorldMap[455*croppedWidth+635].z;
+
+  println(aux + "altura");
+  //println(mouseX + "mouseX");
+  //println(mouseY + "mouseY");
+
+  if (aux > 800) {
+    image(imageSpring, 1021, 645, 100, 100);
+  } else if (aux > 785 && aux <= 800) {
+    image(imageSummer, 1021, 645, 100, 100);
+  } else if (aux > 770 && aux <= 785) {
+    image(imageOutumn, 1021, 645, 100, 100);
+  } else if (aux <= 770) {
+    image(imageWinter, 1021, 645, 100, 100);
+  }
 }
 
 void keyPressed() {
