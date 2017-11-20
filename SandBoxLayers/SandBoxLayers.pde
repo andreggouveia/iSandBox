@@ -19,7 +19,7 @@ Keystone ks;
 CornerPinSurface surface;
 
 PGraphics offscreen;
-PImage imageSpring, imageSummer, imageOutumn, imageWinter, brown2, white;
+PImage imageSpring, imageSummer, imageOutumn, imageWinter, white, brown, brown2, brown3, green, green2;
 
 int cropLeft = 10; 
 int cropRight = 10;
@@ -64,7 +64,11 @@ void setup() {
   imageSummer = loadImage("verão.png");
   imageOutumn = loadImage("outono.png");
   imageWinter = loadImage("inverno.png");
+  green = loadImage("relva.jpg");
+  green2 = loadImage("relva2.jpg");
+  brown = loadImage("brown.png");
   brown2 = loadImage("brown2.jpg");
+  brown3 = loadImage("brown3.jpg");
   white = loadImage("white.jpg");
 }
 
@@ -182,10 +186,16 @@ void draw() {
 
   if (aux > 800) {
     image(imageSpring, 1021, 645, 100, 100);
+    brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745);
+    catImageLayer = new SandboxImageLayer(green2, 0, 0, 600, 350, 785);
   } else if (aux > 785 && aux <= 800) {
     image(imageSummer, 1021, 645, 100, 100);
+    brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745);
+    catImageLayer = new SandboxImageLayer(green, 0, 0, 600, 350, 785);
   } else if (aux > 770 && aux <= 785) {
     image(imageOutumn, 1021, 645, 100, 100);
+    brownImageLayer = new SandboxImageLayer(brown2, 0, 0, 600, 350, 745);
+    catImageLayer = new SandboxImageLayer(brown3, 0, 0, 600, 350, 785);
   } else if (aux <= 770) {
     image(imageWinter, 1021, 645, 100, 100);
     brownImageLayer = new SandboxImageLayer(brown2, 0, 0, 600, 350, 745);
