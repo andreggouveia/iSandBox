@@ -66,7 +66,7 @@ void setup() {
   imageWinter = loadImage("inverno.png");
   green = loadImage("relva.jpg");
   green2 = loadImage("relva2.jpg");
-  brown = loadImage("brown.png");
+  brown = loadImage("brown.jpg");
   brown2 = loadImage("brown2.jpg");
   brown3 = loadImage("brown3.jpg");
   white = loadImage("white.jpg");
