@@ -5,7 +5,7 @@ class SandboxImageLayer {
   int x, y, w, h;
 
   int depth;
-  int threshold = 20;
+  int threshold = 22;
 
   public SandboxImageLayer(PImage image, int x, int y, int w, int h, int depth) {
     this.image = image;
