@@ -19,7 +19,7 @@ Keystone ks;
 CornerPinSurface surface;
 
 PGraphics offscreen;
-PImage imageSpring, imageSummer, imageOutumn, imageWinter, white, brown, brown2, brown3, green, green2;
+PImage imageSpring, imageSummer, imageOutumn, imageWinter, white, brown, brown2, brown3, green, green2, green3;
 
 int cropLeft = 10; 
 int cropRight = 10;
@@ -66,6 +66,7 @@ void setup() {
   imageWinter = loadImage("inverno.png");
   green = loadImage("relva.jpg");
   green2 = loadImage("relva2.jpg");
+  green3 = loadImage("relva3.jpg");
   brown = loadImage("brown.jpg");
   brown2 = loadImage("brown2.jpg");
   brown3 = loadImage("brown3.jpg");
@@ -198,8 +199,8 @@ void draw() {
     catImageLayer = new SandboxImageLayer(brown3, 0, 0, 600, 350, 785);
   } else if (aux <= 770) {
     image(imageWinter, 1021, 645, 100, 100);
-    brownImageLayer = new SandboxImageLayer(brown2, 0, 0, 600, 350, 745);
-    catImageLayer = new SandboxImageLayer(white, 0, 0, 600, 350, 785); 
+    brownImageLayer = new SandboxImageLayer(white, 0, 0, 600, 350, 745);
+    catImageLayer = new SandboxImageLayer(green3, 0, 0, 600, 350, 785); 
   }
 }
 
