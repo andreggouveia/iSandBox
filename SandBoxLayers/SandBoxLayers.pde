@@ -101,7 +101,7 @@ void draw() {
 
 
   // Draw depth data as color green to red
-
+  /*
   int steps = 10;
   offscreen.noStroke();
   color fromColor = color(0, 255, 0);
@@ -115,14 +115,14 @@ void draw() {
       // println(x, y, depthMap[index]);
     }
   } 
-
+  */
   // Draw depth image
-
+  /*
   offscreen.pushMatrix();
   offscreen.scale(width*1.0/depthImage.width, height*1.0/depthImage.height);
   offscreen.image(depthImage, 0, 0);//, width, height);
   offscreen.popMatrix();
-
+  */
 
 
   if (cropping) {
@@ -177,28 +177,28 @@ void draw() {
 
 
 
-  float aux = realWorldMap[325*croppedWidth+575].z;
+  float aux = realWorldMap[25*croppedWidth+525].z;
 
   //float aux = realWorldMap[455*croppedWidth+635].z;
 
   println(aux + "altura");
-  //println(mouseX + "mouseX");
-  //println(mouseY + "mouseY");
+  println(mouseX + "mouseX");
+  println(mouseY + "mouseY");
 
   if (aux > 800) {
-    image(imageSpring, 1021, 645, 100, 100);
+    image(imageSpring, 1011, 100, 100, 100);
     brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745);
     catImageLayer = new SandboxImageLayer(green2, 0, 0, 600, 350, 785);
   } else if (aux > 785 && aux <= 800) {
-    image(imageSummer, 1021, 645, 100, 100);
+    image(imageSummer, 1011, 100, 100, 100);
     brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745);
     catImageLayer = new SandboxImageLayer(green, 0, 0, 600, 350, 785);
   } else if (aux > 770 && aux <= 785) {
-    image(imageOutumn, 1021, 645, 100, 100);
+    image(imageOutumn, 1011, 100, 100, 100);
     brownImageLayer = new SandboxImageLayer(brown2, 0, 0, 600, 350, 745);
     catImageLayer = new SandboxImageLayer(brown3, 0, 0, 600, 350, 785);
   } else if (aux <= 770) {
-    image(imageWinter, 1021, 645, 100, 100);
+    image(imageWinter, 1011, 100, 100, 100);
     brownImageLayer = new SandboxImageLayer(white, 0, 0, 600, 350, 745);
     catImageLayer = new SandboxImageLayer(green3, 0, 0, 600, 350, 785); 
   }
