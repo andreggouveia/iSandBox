@@ -184,11 +184,16 @@ void draw() {
   println(aux + "altura");
   println(mouseX + "mouseX");
   println(mouseY + "mouseY");
-
+  
+  
+  //*********************************** MENU CANTO SUPERIOR DIREITO *****************************************
   if (aux > 800) {
     image(imageSpring, 1011, 100, 100, 100);
     brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745);
     catImageLayer = new SandboxImageLayer(green2, 0, 0, 600, 350, 785);
+    /*
+    Se for primavera o spassaros surgem do canto superior esquerdo
+    */
   } else if (aux > 785 && aux <= 800) {
     image(imageSummer, 1011, 100, 100, 100);
     brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745);
@@ -197,11 +202,61 @@ void draw() {
     image(imageOutumn, 1011, 100, 100, 100);
     brownImageLayer = new SandboxImageLayer(brown2, 0, 0, 600, 350, 745);
     catImageLayer = new SandboxImageLayer(brown3, 0, 0, 600, 350, 785);
-  } else if (aux <= 770) {
+  } else if (aux > 730 && aux <= 770) {
     image(imageWinter, 1011, 100, 100, 100);
     brownImageLayer = new SandboxImageLayer(white, 0, 0, 600, 350, 745);
     catImageLayer = new SandboxImageLayer(green3, 0, 0, 600, 350, 785); 
+  } 
+  
+  
+  //************************************** MENU CANTO ESQUERDO SUPERIOR ************************************
+  if (aux > 800) {
+    image(imageSpring, 1011, 100, 100, 100);
+    brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745);
+    catImageLayer = new SandboxImageLayer(green2, 0, 0, 600, 350, 785);
+    /*
+    Se for primavera o spassaros surgem do canto superior esquerdo
+    */
+  } else if (aux > 785 && aux <= 800) {
+    image(imageSummer, 1011, 100, 100, 100);
+    brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745);
+    catImageLayer = new SandboxImageLayer(green, 0, 0, 600, 350, 785);
+  } else if (aux > 770 && aux <= 785) {
+    image(imageOutumn, 1011, 100, 100, 100);
+    brownImageLayer = new SandboxImageLayer(brown2, 0, 0, 600, 350, 745);
+    catImageLayer = new SandboxImageLayer(brown3, 0, 0, 600, 350, 785);
+  } else if (aux > 730 && aux <= 770) {
+    image(imageWinter, 1011, 100, 100, 100);
+    brownImageLayer = new SandboxImageLayer(white, 0, 0, 600, 350, 745);
+    catImageLayer = new SandboxImageLayer(green3, 0, 0, 600, 350, 785); 
+  } 
+  
+  
+  
+  
+  
+  
+  
+  int flag = 0;
+  for (int x=0;x<croppedWidth;x++){
+    for (int y=0;y<croppedHeight;y++){
+      if (realWorldMap[y*croppedWidth+x].z > 550 && realWorldMap[y*croppedWidth+x].z <= 730){
+        float x2 = map(x,0,600,0,1150);
+        float y2 = map(y,0,480,0,1070);
+        println("ENTRA AQUIIIIIII "+x2+" "+y2);
+        ellipse(x2,y2,50,50);
+        fill(0,255,255);
+        flag = 1;
+        break;
+       
+        
+      }
+    }
+    if (flag == 1){
+      break;
+    }
   }
+    
 }
 
 void keyPressed() {
