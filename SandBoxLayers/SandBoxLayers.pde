@@ -19,7 +19,7 @@ Keystone ks;
 CornerPinSurface surface;
 
 PGraphics offscreen;
-PImage imageSpring, imageSummer, imageOutumn, imageWinter, white, brown, brown2, brown3, green, green2, green3;
+PImage imageSpring, imageSummer, imageOutumn, imageWinter, white, brown, brown2, brown3, green, green2, green3, bird, fish, tree, veado;
 
 int cropLeft = 10; 
 int cropRight = 10;
@@ -28,6 +28,15 @@ int cropBottom = 90;
 boolean cropping = false;
 
 SandboxImageLayer imageLayer, catImageLayer, catShitImageLayer, brownImageLayer, springImageLayer;
+
+
+ArrayList<String> veados = new ArrayList<String>();
+ArrayList<String> peixes = new ArrayList<String>();
+ArrayList<String> trees = new ArrayList<String>();
+ArrayList<String> birds = new ArrayList<String>();
+
+
+
 
 void setup() {
   fullScreen(P3D, 2); // 2 - second screen (projector) must be in extend mode
@@ -60,6 +69,10 @@ void setup() {
   //catImageLayer = new SandboxImageLayer(loadImage("green.jpg"), 0, 0, 640, 480, 750);
   catShitImageLayer = new SandboxImageLayer(loadImage("agua.jpg"), 0, 0, 600, 350, 830);//TODO
   //catShitImageLayer = new SandboxImageLayer(loadImage("blue.jpg"), 0, 0, 640, 480, 780);
+  bird = loadImage("passaro.png");
+  fish = loadImage("peixe.png");
+  tree = loadImage("tree.png");
+  veado = loadImage("veado.png");
   imageSpring = loadImage("primavera.png");
   imageSummer = loadImage("verão.png");
   imageOutumn = loadImage("outono.png");
@@ -149,6 +162,8 @@ void draw() {
   brownImageLayer.draw(offscreen);
 
   offscreen.popMatrix();
+  
+ 
 
 
   // Show depth of the cursor point
@@ -207,28 +222,24 @@ void draw() {
     brownImageLayer = new SandboxImageLayer(white, 0, 0, 600, 350, 745);
     catImageLayer = new SandboxImageLayer(green3, 0, 0, 600, 350, 785); 
   } 
-  
-  
+ 
+  int choice_esp = 0;
   //************************************** MENU CANTO ESQUERDO SUPERIOR ************************************
-  if (aux > 800) {
-    image(imageSpring, 1011, 100, 100, 100);
-    brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745);
-    catImageLayer = new SandboxImageLayer(green2, 0, 0, 600, 350, 785);
-    /*
-    Se for primavera o spassaros surgem do canto superior esquerdo
-    */
-  } else if (aux > 785 && aux <= 800) {
-    image(imageSummer, 1011, 100, 100, 100);
-    brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745);
-    catImageLayer = new SandboxImageLayer(green, 0, 0, 600, 350, 785);
-  } else if (aux > 770 && aux <= 785) {
-    image(imageOutumn, 1011, 100, 100, 100);
-    brownImageLayer = new SandboxImageLayer(brown2, 0, 0, 600, 350, 745);
-    catImageLayer = new SandboxImageLayer(brown3, 0, 0, 600, 350, 785);
-  } else if (aux > 730 && aux <= 770) {
-    image(imageWinter, 1011, 100, 100, 100);
-    brownImageLayer = new SandboxImageLayer(white, 0, 0, 600, 350, 745);
-    catImageLayer = new SandboxImageLayer(green3, 0, 0, 600, 350, 785); 
+  float aux1 = realWorldMap[25*croppedWidth+25].z;
+  if (aux1 > 800) {
+    image(veado, 50, 70, 100, 100);
+    choice_esp = 1;
+  
+  } else if (aux1 > 785 && aux1 <= 800) {
+    image(fish, 50, 70, 100, 100);
+    choice_esp = 2;
+
+  } else if (aux1 > 770 && aux1 <= 785) {
+    image(tree, 50, 70, 100, 100);
+    choice_esp = 3;
+    
+  } else if (aux1 > 730 && aux1 <= 770) {
+    image(bird, 50, 70, 100, 100);
   } 
   
   
@@ -246,15 +257,32 @@ void draw() {
         println("ENTRA AQUIIIIIII "+x2+" "+y2);
         ellipse(x2,y2,50,50);
         fill(0,255,255);
-        flag = 1;
-        break;
-       
+        if (choice_esp == 3){
+          image(tree, x2, y2, 50, 50);
+        }else if (choice_esp == 1){
+          image(veado, x2, y2, 50, 50);
+          String coord = x2+" "+y2;
+          veados.add(coord);
+          
+        }else if (choice_esp == 2){
+          image(fish, x2, y2, 50, 50);
+          
+        }
         
+        //image(fish, x2, y2, 50, 50);
+        flag = 1;
+        break;  
       }
     }
     if (flag == 1){
       break;
     }
+  }
+  
+   //*********************** DRAW ANIMALS **********************
+  for (int i=0;i<veados.size();i++){
+    image(veado, i+500, i+500, 100, 100);
+    println("oiiiiiiiiiiiiiiiiii");
   }
     
 }
