@@ -5,15 +5,16 @@ class SandboxImageLayer {
   int x, y, w, h;
 
   int depth;
-  int threshold = 22;
+  int threshold;
 
-  public SandboxImageLayer(PImage image, int x, int y, int w, int h, int depth) {
+  public SandboxImageLayer(PImage image, int x, int y, int w, int h, int depth, int threshold) {
     this.image = image;
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
     this.depth = depth;
+    this.threshold = threshold;
   }
 
   public void draw(PGraphics g) {

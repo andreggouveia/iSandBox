@@ -63,11 +63,11 @@ void setup() {
   //imageLayer = new SandboxImageLayer(loadImage("girlwithbunny-closeup.jpg"), 100, 100, 100, 100, 800);
 
 
-  brownImageLayer = new SandboxImageLayer(loadImage("brown.jpg"), 0, 0, 600, 350, 745);
+  brownImageLayer = new SandboxImageLayer(loadImage("brown.jpg"), 0, 0, 600, 350, 745,22);
 
-  catImageLayer = new SandboxImageLayer(loadImage("relva.jpg"), 0, 0, 600, 350, 785);
+  catImageLayer = new SandboxImageLayer(loadImage("relva.jpg"), 0, 0, 600, 350, 785,22);
   //catImageLayer = new SandboxImageLayer(loadImage("green.jpg"), 0, 0, 640, 480, 750);
-  catShitImageLayer = new SandboxImageLayer(loadImage("agua.jpg"), 0, 0, 600, 350, 830);//TODO
+  catShitImageLayer = new SandboxImageLayer(loadImage("agua.jpg"), 0, 0, 600, 350, 830,22);//TODO
   //catShitImageLayer = new SandboxImageLayer(loadImage("blue.jpg"), 0, 0, 640, 480, 780);
   bird = loadImage("passaro.png");
   fish = loadImage("peixe.png");
@@ -204,23 +204,23 @@ void draw() {
   //*********************************** MENU CANTO SUPERIOR DIREITO *****************************************
   if (aux > 800) {
     image(imageSpring, 1011, 100, 100, 100);
-    brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745);
-    catImageLayer = new SandboxImageLayer(green2, 0, 0, 600, 350, 785);
+    brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745, 22);
+    catImageLayer = new SandboxImageLayer(green2, 0, 0, 600, 350, 785, 22);
     /*
     Se for primavera o spassaros surgem do canto superior esquerdo
     */
   } else if (aux > 785 && aux <= 800) {
     image(imageSummer, 1011, 100, 100, 100);
-    brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745);
-    catImageLayer = new SandboxImageLayer(green, 0, 0, 600, 350, 785);
+    brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745, 40);
+    catImageLayer = new SandboxImageLayer(green, 0, 0, 600, 350, 785, 15);
   } else if (aux > 770 && aux <= 785) {
     image(imageOutumn, 1011, 100, 100, 100);
-    brownImageLayer = new SandboxImageLayer(brown2, 0, 0, 600, 350, 745);
-    catImageLayer = new SandboxImageLayer(brown3, 0, 0, 600, 350, 785);
+    brownImageLayer = new SandboxImageLayer(brown2, 0, 0, 600, 350, 745, 22);
+    catImageLayer = new SandboxImageLayer(brown3, 0, 0, 600, 350, 785, 22);
   } else if (aux > 730 && aux <= 770) {
     image(imageWinter, 1011, 100, 100, 100);
-    brownImageLayer = new SandboxImageLayer(white, 0, 0, 600, 350, 745);
-    catImageLayer = new SandboxImageLayer(green3, 0, 0, 600, 350, 785); 
+    brownImageLayer = new SandboxImageLayer(white, 0, 0, 600, 350, 745, 22);
+    catImageLayer = new SandboxImageLayer(green3, 0, 0, 600, 350, 785, 22); 
   } 
  
   int choice_esp = 0;
@@ -259,6 +259,8 @@ void draw() {
         fill(0,255,255);
         if (choice_esp == 3){
           image(tree, x2, y2, 50, 50);
+          String coord = x2+" "+y2;
+          trees.add(coord);
         }else if (choice_esp == 1){
           image(veado, x2, y2, 50, 50);
           String coord = x2+" "+y2;
@@ -266,6 +268,8 @@ void draw() {
           
         }else if (choice_esp == 2){
           image(fish, x2, y2, 50, 50);
+          String coord = x2+" "+y2;
+          peixes.add(coord);
           
         }
         
@@ -280,9 +284,31 @@ void draw() {
   }
   
    //*********************** DRAW ANIMALS **********************
-  for (int i=0;i<veados.size();i++){
-    image(veado, i+500, i+500, 100, 100);
+   for (int i=0;i<trees.size();i++){
+    String[] cont = trees.get(i).split(" ");
+    String coord_x = cont[0];
+    String coord_y = cont[1];
+    
+    image(tree, Float.parseFloat(coord_x), Float.parseFloat(coord_y), 100, 100);
     println("oiiiiiiiiiiiiiiiiii");
+  }
+   
+   
+  for (int i=0;i<veados.size();i++){
+    String[] cont = veados.get(i).split(" ");
+    String coord_x = cont[0];
+    String coord_y = cont[1];
+    
+    image(veado, Float.parseFloat(coord_x), Float.parseFloat(coord_y), 100, 100);
+    println("oiiiiiiiiiiiiiiiiii");
+  }
+  
+  for (int i=0;i<peixes.size();i++){
+    String[] cont = peixes.get(i).split(" ");
+    String coord_x = cont[0];
+    String coord_y = cont[1];
+    
+    image(fish, Float.parseFloat(coord_x), Float.parseFloat(coord_y), 100, 100);
   }
     
 }
