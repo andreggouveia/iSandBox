@@ -215,11 +215,10 @@ void draw() {
     image(imageSpring, 1011, 100, 100, 100);
     brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745, 22);
     catImageLayer = new SandboxImageLayer(green2, 0, 0, 600, 350, 785, 22);
-    /*
     SoundFile file;
     file = new SoundFile(this, "gaivotas_loucas.wav");
     file.play();
-    */
+
     if (indo > 1200) {
       indo = 0;
     }
@@ -294,12 +293,12 @@ void draw() {
 
         passed_time = millis()-saved_time;
 
-        if (passed_time > 5000) {
+        if (passed_time > 10000) {
           float x2 = map(x, 0, 600, 0, 1150);
           float y2 = map(y, 0, 480, 0, 1070);
 
-         //ellipse(x2, y2, 50, 50);
-         //fill(0, 255, 255);
+         // ellipse(x2, y2, 50, 50);
+         // fill(0, 255, 255);
           if (choice_esp == 3) {
 
             image(tree, x2, y2, 50, 50);
@@ -332,7 +331,7 @@ void draw() {
       break;
     }
   }
- 
+  int p2;
   //*********************** DRAW ANIMALS **********************
   for (int i=0; i<trees.size(); i++) {
     String[] cont = trees.get(i).split(" ");
@@ -340,13 +339,8 @@ void draw() {
     String coord_y = cont[1];
 
     image(tree, Float.parseFloat(coord_x), Float.parseFloat(coord_y), 100, 100);
-    /*
-    int t = millis()%2000;
-    println("oi");
-    if (t == 0){
-      println("passou");
-      image(tree, Float.parseFloat(coord_x)+random(0, 200), Float.parseFloat(coord_y)+random(0,200), 100, 100);
-    }*/
+    //image(tree, Float.parseFloat(coord_x+10), Float.parseFloat(coord_y+10), 100, 100); 
+    //image(tree, Float.parseFloat(coord_x), Float.parseFloat(coord_y+10), 100, 100);
   
   }
 

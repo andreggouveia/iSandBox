@@ -41,7 +41,6 @@ ArrayList<String> birds = new ArrayList<String>();
 
 
 int saved_time;
-int s2;
 
 void setup() {
   fullScreen(P3D, 2); // 2 - second screen (projector) must be in extend mode
@@ -49,7 +48,6 @@ void setup() {
   //size(640, 480, P3D);
   context = new SimpleOpenNI(this);
   saved_time = millis();
-  s2 = millis();
   if (context.isInit() == false)
   {
     println("Can't init SimpleOpenNI, maybe the camera is not connected!"); 
@@ -215,11 +213,10 @@ void draw() {
     image(imageSpring, 1011, 100, 100, 100);
     brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745, 22);
     catImageLayer = new SandboxImageLayer(green2, 0, 0, 600, 350, 785, 22);
-    /*
     SoundFile file;
     file = new SoundFile(this, "gaivotas_loucas.wav");
     file.play();
-    */
+
     if (indo > 1200) {
       indo = 0;
     }
@@ -243,7 +240,7 @@ void draw() {
   } else if (aux > 785 && aux <= 800) {
     image(imageSummer, 1011, 100, 100, 100);
     brownImageLayer = new SandboxImageLayer(brown, 0, 0, 600, 350, 745, 32);
-    catImageLayer = new SandboxImageLayer(green, 0, 0, 600, 350, 785, 15);
+    catImageLayer = new SandboxImageLayer(green, 0, 0, 600, 350, 805, 5);
     
   } else if (aux > 770 && aux <= 785) {
     image(imageOutumn, 1011, 100, 100, 100);
@@ -277,7 +274,9 @@ void draw() {
   } else if (aux1 > 770 && aux1 <= 785) {
     image(tree, 50, 70, 100, 100);
     choice_esp = 3;
-  }  
+  } else if (aux1 > 730 && aux1 <= 770) {
+    image(bird, 50, 70, 100, 100);
+  } 
 
 
 
@@ -294,12 +293,12 @@ void draw() {
 
         passed_time = millis()-saved_time;
 
-        if (passed_time > 5000) {
+        if (passed_time > 15000) {
           float x2 = map(x, 0, 600, 0, 1150);
           float y2 = map(y, 0, 480, 0, 1070);
 
-         //ellipse(x2, y2, 50, 50);
-         //fill(0, 255, 255);
+          ellipse(x2, y2, 50, 50);
+          fill(0, 255, 255);
           if (choice_esp == 3) {
 
             image(tree, x2, y2, 50, 50);
@@ -332,7 +331,7 @@ void draw() {
       break;
     }
   }
- 
+
   //*********************** DRAW ANIMALS **********************
   for (int i=0; i<trees.size(); i++) {
     String[] cont = trees.get(i).split(" ");
@@ -340,14 +339,6 @@ void draw() {
     String coord_y = cont[1];
 
     image(tree, Float.parseFloat(coord_x), Float.parseFloat(coord_y), 100, 100);
-    /*
-    int t = millis()%2000;
-    println("oi");
-    if (t == 0){
-      println("passou");
-      image(tree, Float.parseFloat(coord_x)+random(0, 200), Float.parseFloat(coord_y)+random(0,200), 100, 100);
-    }*/
-  
   }
 
 
