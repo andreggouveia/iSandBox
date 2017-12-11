@@ -22,7 +22,7 @@ CornerPinSurface surface;
 int indo = 0;
 
 PGraphics offscreen;
-PImage imageSpring, imageSummer, imageOutumn, imageWinter, white, brown, brown2, brown3, green, green2, green3, bird, fish, tree, veado;
+PImage imageSpring, imageSummer, imageOutumn, imageWinter, white, brown, brown2, brown3, green, green2, green3, bird, fish, tree, veado,reset;
 PImage seagles;
 
 int cropLeft = 10; 
@@ -92,6 +92,7 @@ void setup() {
   brown3 = loadImage("brown3.jpg");
   white = loadImage("white.jpg");
   seagles = loadImage("loucas.gif");
+  reset = loadImage("white.jpg");
 }
 
 void draw() {
@@ -204,9 +205,9 @@ void draw() {
 
   //float aux = realWorldMap[455*croppedWidth+635].z;
 
-  //println(aux + "altura");
-  //println(mouseX + "mouseX");
-  //println(mouseY + "mouseY");
+  println(aux + "altura");
+  println(mouseX + "mouseX");
+  println(mouseY + "mouseY");
 
 
   //*********************************** MENU CANTO SUPERIOR DIREITO *****************************************
@@ -267,6 +268,7 @@ void draw() {
   //************************************** MENU CANTO ESQUERDO SUPERIOR ************************************
   float aux1 = realWorldMap[25*croppedWidth+25].z;
   rect(40,70,125,125);
+  //ellipse(103,657,50,50);
   if (aux1 > 800) {
     
     image(veado, 50, 70, 100, 100);
@@ -278,6 +280,8 @@ void draw() {
     image(tree, 50, 70, 100, 100);
     choice_esp = 3;
   }  
+
+
 
 
 
@@ -340,13 +344,8 @@ void draw() {
     String coord_y = cont[1];
 
     image(tree, Float.parseFloat(coord_x), Float.parseFloat(coord_y), 100, 100);
-    /*
-    int t = millis()%2000;
-    println("oi");
-    if (t == 0){
-      println("passou");
-      image(tree, Float.parseFloat(coord_x)+random(0, 200), Float.parseFloat(coord_y)+random(0,200), 100, 100);
-    }*/
+    
+    
   
   }
 
@@ -357,6 +356,18 @@ void draw() {
     String coord_y = cont[1];
 
     image(veado, Float.parseFloat(coord_x), Float.parseFloat(coord_y), 100, 100);
+    
+    int t = millis()%5000;    
+    if (t <= 300){
+      
+      Float xi = Float.parseFloat(coord_x)+random(0, 200);
+      Float xi2 = Float.parseFloat(coord_y)+random(0,200);
+      image(veado, xi, xi2, 100, 100);
+      
+      String coord = xi+" "+xi2;
+      veados.add(coord);
+      
+    }
   }
 
   for (int i=0; i<peixes.size(); i++) {
@@ -365,6 +376,28 @@ void draw() {
     String coord_y = cont[1];
 
     image(fish, Float.parseFloat(coord_x), Float.parseFloat(coord_y), 100, 100);
+    
+    
+  }
+  
+  
+  //************************************** MENU CANTO INFERIOR ESQUERDO ***************************************
+  
+  float aux2 = realWorldMap[600*croppedWidth+120].z;
+  
+  if (aux2 > 750){
+    //rect(103, 657, 100, 100);
+    //fill(255,0,0);
+    fill(255,0,0);
+    ellipse(150,657,25,25);
+    
+    //rect(40,70,125,125);
+    
+    //apagar elementos do array
+    for (int i=0;i<veados.size();i++){
+      veados.remove(i);
+    }
+    
   }
 }
 
