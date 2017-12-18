@@ -10,7 +10,7 @@
  */
 
 import SimpleOpenNI.*;
-import processing.sound.*;
+
 
 SimpleOpenNI  context;
 
